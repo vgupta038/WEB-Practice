@@ -41,7 +41,7 @@ pipeline {
         stage('Checking the app') {
             steps {
                 echo 'Testing the web app'
-                sh 'wget --spider -q http://localhost:9000 || exit 1'
+                sh 'wget http://172.18.0.1:9000'
                 echo 'App is reachable!'
             }
         }       
