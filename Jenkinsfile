@@ -12,9 +12,7 @@ pipeline {
             }
             steps {
                 echo "The responsible of this project is ${AUTHOR} and will be deployed in ${ENVIRONMENT}"
-                // First, drop the directory if it exists
                 sh 'rm -rf /home/jenkins/web'
-                // Create the directory
                 sh 'mkdir -p /home/jenkins/web'
             }
         }
@@ -26,18 +24,18 @@ pipeline {
             }
         }
 
-     stage('Create the Apache HTTPD container') {
-    steps {
-        echo 'Creating the container with curl installed...'
-        sh '''
-        docker run -dit --name apache1 \
-            -p 9000:80 \
-            -v /home/jenkins/web:/usr/local/apache2/htdocs/ \
-            httpd:latest bash -c "apt-get update && apt-get install -y curl && httpd-foreground"
-        '''
-    }
-}
-
+        stage('Create the Apache HTTPD container') {
+            steps {
+                echo 'Creating the Apache HTTPD container...'
+                // Start the container normally without installing anything
+                sh '''
+                docker run -dit --name apache1 \
+                    -p 9000:80 \
+                    -v /home/jenkins/web:/usr/local/apache2/htdocs/ \
+                    httpd:latest
+                '''
+            }
+        }
 
         stage('Copy the web application to the container directory') {
             steps {
@@ -48,10 +46,21 @@ pipeline {
 
         stage('Checking the app') {
             steps {
-                echo 'Testing the web app'
-                // Using curl inside container to check Apache
-                sh 'docker exec apache1 curl -I http://localhost || exit 1'
-                echo 'App is reachable!'
+                echo 'Testing the web app from Jenkins host...'
+                // Check Apache from Jenkins container/host using wget
+                sh '''
+                for i in {1..10}; do
+                    if wget --spider -q http://localhost:9000; then
+                        echo "App is reachable!"
+                        exit 0
+                    else
+                        echo "Waiting for Apache to start..."
+                        sleep 3
+                    fi
+                done
+                echo "App is NOT reachable!"
+                exit 1
+                '''
             }
         }
     }
