@@ -41,7 +41,8 @@ pipeline {
         stage('Checking the app') {
             steps {
                 echo 'Testing the web app'
-                sh 'docker exec apache1 curl -I http://localhost'
+                sh 'docker exec apache1 wget --spider -q http://localhost || exit 1'
+                echo 'App is reachable!'
             }
         }       
     }
