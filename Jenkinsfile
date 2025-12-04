@@ -26,18 +26,18 @@ pipeline {
             }
         }
 
-        stage('Create the Apache HTTPD container') {
-            steps {
-               echo 'Creating the container with curl installed...'
+     stage('Create the Apache HTTPD container') {
+    steps {
+        echo 'Creating the container with curl installed...'
         sh '''
         docker run -dit --name apache1 \
             -p 9000:80 \
             -v /home/jenkins/web:/usr/local/apache2/htdocs/ \
             httpd:latest bash -c "apt-get update && apt-get install -y curl && httpd-foreground"
         '''
-    
-            }
-        }
+    }
+}
+
 
         stage('Copy the web application to the container directory') {
             steps {
