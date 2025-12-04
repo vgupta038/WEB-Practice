@@ -29,7 +29,7 @@ pipeline {
                 echo 'Creating the Apache HTTPD container...'
                 // Start the container normally without installing anything
                 sh '''
-                docker run -dit --name apache1 \
+                docker run -dit --network=jenkins --name apache1 \
                     -p 9000:80 \
                     -v /home/jenkins/web:/usr/local/apache2/htdocs/ \
                     httpd:latest
