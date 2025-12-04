@@ -50,7 +50,7 @@ pipeline {
                 // Check Apache from Jenkins container/host using wget
                 sh '''
                 for i in {1..10}; do
-                    if wget --spider -q http://localhost:9000; then
+                    if wget --spider -q http://apache1:9000; then
                         echo "App is reachable!"
                         exit 0
                     else
