@@ -41,7 +41,7 @@ pipeline {
         stage('Checking the app') {
             steps {
                 echo 'Testing the web app'
-                sh 'wget http://localhost:9000'
+                sh 'docker exec apache1 curl -I http://localhost'
             }
         }       
     }
