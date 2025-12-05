@@ -35,7 +35,9 @@ pipeline {
         stage('Copy the web application to the container directory') {
             steps {
                 echo 'Copying web application...'             
-                sh 'cp -r web/* /home/jenkins/web'
+                sh 'cp -a web/. /home/jenkins/web/'
+                echo "After copy:"
+                sh 'ls -R /home/jenkins/web'
             }
         }
         stage('Checking the app') {
