@@ -17,7 +17,7 @@ pipeline {
                 //sh 'rm -rf /home/jenkins/web'
                 //Create the directory
                 //sh 'mkdir /home/jenkins/web'
-                sh 'powershell.exe mkdir C:\\Users\\vgupt\\web'                
+               // sh 'powershell.exe mkdir C:\\Users\\vgupt\\web'                
             }
         }
         stage('Drop the Apache HTTPD Docker container'){
