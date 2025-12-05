@@ -30,7 +30,7 @@ pipeline {
             steps {
             echo 'Creating the container...'
             //sh 'docker run -dit --name apache1 -p 9000:80  -v /home/jenkins/web:/usr/local/apache2/htdocs/ httpd'
-              sh 'docker run -dit --name apache1 -p 9000:80 -v C:/Users/vgupt/web:/usr/local/apache2/htdocs/ httpd'
+             sh 'docker run -dit --name apache1 -p 9000:80 -v /mnt/c/Users/vgupt/web:/usr/local/apache2/htdocs/ httpd'
             }
         }
         stage('Copy the web application to the container directory') {
@@ -39,7 +39,9 @@ pipeline {
                // sh 'cp -a web/. /home/jenkins/web/'
                 //echo "After copy:"
                 //sh 'ls -R /home/jenkins/web'
-                sh 'cp -a web/. /c/Users/vgupt/web/'
+               // sh 'cp -a web/. /c/Users/vgupt/web/'
+                 sh 'cp -a web/. /mnt/c/Users/vgupt/web/'
+                 sh 'ls -R /mnt/c/Users/vgupt/web'
             }
         }
         stage('Checking the app') {
