@@ -42,7 +42,7 @@ pipeline {
         stage('Checking the app') {
             steps {
                 echo 'Testing the web app'
-                sh 'curl http://apache1:9000'
+                sh 'curl http://127.0.0.1:9000'
             }
         }       
     }
