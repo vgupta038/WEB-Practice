@@ -13,11 +13,6 @@ pipeline {
             }
             steps{
                 echo "The responsible of this project is ${AUTHOR} and and will be deployed in ${ENVIRONMENT}"
-                // Fisrt, drop the directory if exists
-                // sh 'rm -rf /home/jenkins/web'
-                // Create the directory
-                // sh 'mkdir /home/jenkins/web'
-                
             }
         }
         stage('Drop the Apache HTTPD Docker container'){
@@ -36,7 +31,6 @@ pipeline {
             steps {
                 echo 'Copying web application...'             
                 sh 'docker cp web/. apache1:/usr/local/apache2/htdocs/'
-                sh 'docker exec apache1 ls -R /usr/local/apache2/htdocs/'
             }
         }
         stage('Checking the app') {
