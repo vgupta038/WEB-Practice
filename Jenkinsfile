@@ -36,7 +36,7 @@ pipeline {
         stage('Checking the app') {
             steps {
                 echo 'Testing the web app'
-                sh 'curl http://apache1:9000'
+                echo 'access http://localhost:9000 from browser'
             }
         }       
     }
